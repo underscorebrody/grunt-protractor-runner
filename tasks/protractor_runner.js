@@ -28,6 +28,7 @@ module.exports = function(grunt) {
       keepAlive: true,
       noColor: false,
       debug: false,
+      wait: 0,
       args: {}
     });
 
@@ -102,7 +103,9 @@ module.exports = function(grunt) {
 
     // Spawn protractor command
     var done = this.async();
-    grunt.util.spawn({
+
+    setTimeout(function(){
+      grunt.util.spawn({
         cmd: 'node',
         args: args,
         opts: {
@@ -126,8 +129,8 @@ module.exports = function(grunt) {
           done();
           done = null;
         }
-      }
-    );
+      });
+    }, opts.wait);
   });
 
 };
